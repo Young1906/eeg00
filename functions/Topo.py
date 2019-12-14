@@ -44,7 +44,7 @@ class Topo():
         self.bound = (x_min, x_max, y_min, y_max)
         self.sigs = values
 
-        return 0 
+        return self.gridz, self.bound, self.points 
 
     def plot(self):
         # Interpolate data
@@ -61,7 +61,7 @@ class Topo():
         cs = plt.contour(self.gridz, extent = self.bound, alpha = 1, \
             origin='lower')
         
-        plt.clabel(cs, inline=1,fmt = '%1.2f')
+        plt.clabel(cs, inline=1)
 
         plt.scatter(self.points[:,0],self.points[:,1], s=2, c='black')
         
