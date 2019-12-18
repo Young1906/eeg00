@@ -46,43 +46,44 @@ class Topo():
 
         return self.gridz, self.bound, self.points 
 
-    def plot(self):
+    def plot(self, ax):
         # Interpolate data
         self._mgrid()
-        plt.set_cmap('Reds')
+      
         
-        # plt.subplots()
-        
-        plt.imshow(self.gridz, extent = self.bound, alpha = .5, \
+        im = ax.imshow(self.gridz, extent = self.bound, alpha = 1, \
              origin='lower') #Important, else show inverse image
         
 
-        # plt.contourf(self.gridz, extent = self.bound, alpha = .75)
-        cs = plt.contour(self.gridz, extent = self.bound, alpha = 1, \
+      
+        cs = ax.contour(self.gridz, extent = self.bound, alpha = 1, \
             origin='lower')
         
-        plt.clabel(cs, inline=1)
-
-        plt.scatter(self.points[:,0],self.points[:,1], s=2, c='black')
+        ax.clabel(cs, inline=1)
+        ax.scatter(self.points[:,0],self.points[:,1], s=2, c='black')
         
         x_min, x_max, y_min, y_max = self.bound
         
-        plt.text((x_min+x_max)/2, y_max, "Front", horizontalalignment='center')
-        # plt.text(x_min, (y_min+y_max)/2, "Left")
-        # plt.text(x_max, (y_min+y_max)/2, "Right")
-        plt.axis('off')
-        plt.show()
+        ax.text((x_min+x_max)/2, y_max, "Front", horizontalalignment='center')
+        
+        ax.axis('off')
+        return im
 
 
 __all__ = ['Topo']
 
 if __name__ == "__main__":
-    
-    df = pd.read_csv(_URL)
+    fig, (ax1, ax2, ax3) = plt.subplots(1,3)
+    df = pd.read_csv("https://gist.githubusercontent.com/anonymous/d8975f76f5bcde7bd455/raw/831239b213fc29462db68f33caad3f05c57c0eff/topoplot_sample_data.csv")
     Sig = df[['x','y', 'signal']].values
 
     T = Topo(Sig)
-    T.plot()
-    # plt.show()
+    g = T.plot(ax1)
+    print(T.bound)
+    
+    Sig2 = Sig+5
+    T2 = Topo(Sig2)
+    g = T2.plot(ax2)
 
-
+    fig.colorbar(g, cax=ax3)
+    plt.show()

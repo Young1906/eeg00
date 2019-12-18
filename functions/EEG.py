@@ -10,21 +10,8 @@ import time
 from scipy.interpolate import griddata
 from tqdm import tqdm_notebook as tqdm
 
-# Setting
-FS = 500                                        #Sampling frequency
-LOWCUT = 0.5                                    #Highpass
-HIGHCUT = 45                                    #Lowpass
-plt.rcParams['figure.figsize'] = [25, 5]
 
-_WINDOW = 15
 
-# Subjects
-_DIR_PATH = './gdrive/My Drive/Project_Database'
-_SESSION1 = [1528, 1520, 1530, 1507, 1523, 1492, 1517, 1515, 1489, 1503] #1489*
-_SESSION2 = [1539, 1541, 1545, 1549, 1551, 1553, 1567, 1569, 1572, 1575]
-
-_STG_PATH = "{_path}/{session}/{session}_alice/csv/STAGE.csv"
-_EDF_PATH = "{_path}/{session}/{session}_alice/edf/A000{session}.edf"
 
 # Fucntion to process data
 
