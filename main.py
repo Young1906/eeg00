@@ -1,6 +1,6 @@
 from functions.Topo import Topo
 import pandas as pd
-
+from matplotlib import pyplot as plt
 
 if __name__ == "__main__":
     # Sample data: 
